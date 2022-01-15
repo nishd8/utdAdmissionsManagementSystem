@@ -1,0 +1,126 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTD Eligibility Checker</title>
+    <style>
+        .utd-green {
+            color: #154734;
+        }
+
+        .utd-bg-green {
+            background-color: #154734;
+        }
+
+        .utd-orange {
+            color: #e87500 !important;
+        }
+
+        .utd-bg-orange {
+            background-color: #e87500;
+        }
+
+        .bold {
+            font-weight: bold !important;
+        }
+
+        .big {
+            font-size: 20px;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div class="p-2 utd-orange bg-light">
+        <div class="d-flex">
+            <img src="./utd.png" height="50">
+            <div class="bold big my-auto ms-2">The University Of Texas at Dallas</div>
+        </div>
+    </div>
+    <div class="py-2 px-3  text-white utd-bg-green">
+        <span class="bold big">
+            Admissions Management System
+        </span>
+    </div>
+    <div class="container-fluid mt-4 pt-4">
+        <div class="row">
+            <div class="col-lg-4 offset-lg-4">
+                <div class="shadow-sm border rounded px-4 py-5">
+                    <div class="utd-orange big mb-4">
+                        Welcome to Admissions Granting System
+                        <sup class="utd-green">BETA</sup>
+                        <hr class="utd-green" />
+                    </div>
+                    <div class="mb-4">
+                        <label class="utd-green mb-2">Select UTD School</label>
+                        <select id="utdSchool" class="form-control" onchange="getMajors()"></select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="utd-green mb-2">Select UTD Majors</label>
+                        <select id="utdMajor" class="form-control"></select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="utd-green mb-2">Enter Student Name</label>
+                        <input type="text" class="form-control" id="studentName">
+                    </div>
+                    <div>
+                        <button class="border-0 py-2 rounded utd-bg-green w-100 text-white" type="button" onclick="grandAdmission()">Get Recomendations</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    let url = "http://127.0.0.1:5000/"
+    
+    const getSchools = () =>{
+        axios.get(url+"get_schools")
+        .then((res)=>{
+            let schools_tag = document.getElementById("utdSchool")
+            let html=""
+            res.data.schools.forEach((element)=>{
+                html+="<option value='"+element.replace(".","")+"'>"+element.split('_').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')+"</option>"
+            })
+            schools_tag.innerHTML = "<option disabled selected>Please select a option</option>" + html
+        })
+    }
+
+    const getMajors = () =>{
+        let payload = {
+            school:document.getElementById("utdSchool").value
+        }
+        axios.post(url+"get_majors",payload)
+        .then((res)=>{
+            let major_tag = document.getElementById("utdMajor")
+            let html=""
+            res.data.majors.forEach((element)=>{
+                html+="<option value='"+element.replace(".","")+"'>"+element.split('_').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')+"</option>"
+            })
+            major_tag.innerHTML = html
+            console.log(res.data)
+        })
+    }
+    window.onload = () =>{
+        getSchools()
+    }
+    const grandAdmission = () =>{
+        let payload = {
+            school:document.getElementById('utdSchool').value,
+            major:document.getElementById('utdMajor').value,
+            name:document.getElementById('studentName').value,
+        }
+        
+
+        axios.post(url+"grant_admission",payload).then(function(res){
+            alert("Added Succesfully")
+        })
+    }
+</script>

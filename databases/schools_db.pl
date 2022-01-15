@@ -1,0 +1,2 @@
+school(erik_jonsson_school_of_engineering_and_computer_science).
+school(naveen_jindal_school_of_management)
