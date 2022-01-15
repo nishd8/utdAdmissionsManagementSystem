@@ -6,7 +6,7 @@ We were a little confused after attending Dr. Gupta's workshops because it was t
 
 ## What it does
 It has two functionalities currently:
-1) To effectively anticipate which majors a person can qualify for based on their prior qualifications.
+1) To recommend what majors a student is qualified for based on admission requirements and a student's own qualifications.
 2) An administrative component that enables you to dynamically issue admissions to students and adjust the number of seats available for each major.
 
 Note: We've only developed it for the Erik Jonsson School of Engineering and Computer Science's Graduate Programs thus far.
@@ -31,6 +31,8 @@ Note: We've only developed it for the Erik Jonsson School of Engineering and Com
 3) We successfully added a level of a abstraction and interactivity to the sCASP system.
  
 ## What we learned
+1) Answer Set Programming and Prolog. This is the first time anyone in our team has used prolog/sCASP or any kind of answer set programming.
+2) Running a Linux machine. This hackathon, being the first one for 2 of our 3 members, taught us how to operate a linux machine on windows.
 
 ## What's next for UTD Admission Management System
 1) Include graduate and undergraduate programs from other schools at UTD.
