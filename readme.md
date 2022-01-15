@@ -1,4 +1,4 @@
-### UTD Admissions Management System
+# UTD Admissions Management System
 
 
 ## Inspiration
