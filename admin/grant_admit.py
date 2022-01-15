@@ -1,6 +1,6 @@
 majors ={
     "engineering":["biomedical","computer","computer_engineering","electrical","mechanical"],
-    "management":["accounting","business analytics","business_administration","energy management","executive_systems_engineering_and_management","finance",
+    "management":["accounting","business_analytics","business_administration","energy management","executive_systems_engineering_and_management","finance",
     "financial_engineering_and_risk_management","healthcare_leadership_and_management","information_technology_and_management",
     "innovation_and_entrepreneurship","international_management","management_science","marketing",
     "supply_chain_management","systems_engineering_and_management"]

@@ -1,3 +1,5 @@
+#include '../databases/major_wise_seats_db.pl'.
+
 essay(yes).
 
 background(mechanical,bachelors_in_engineering).
@@ -42,4 +44,5 @@ check_is_eligible(
     GPA,GRE,LOR,Essay, Background,Possible_major):- 
         major(Possible_major,GPA,GRE,LOR,Essay,Background).
 
-?- check_is_eligible(2.9,301,3,yes,bachelors_in_science_in_computer,Possible_majors).
+% ?- check_is_eligible(2.9,301,3,yes,bachelors_in_science_in_computer,Possible_majors).
+?- seats(biomedical,X).
