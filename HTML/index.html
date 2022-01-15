@@ -1,0 +1,139 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTD Eligibility Checker</title>
+    <style>
+        .utd-green {
+            color: #154734;
+        }
+
+        .utd-bg-green {
+            background-color: #154734;
+        }
+
+        .utd-orange {
+            color: #e87500 !important;
+        }
+
+        .utd-bg-orange {
+            background-color: #e87500;
+        }
+
+        .bold {
+            font-weight: bold !important;
+        }
+
+        .big {
+            font-size: 20px;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div class="p-2 utd-orange bg-light">
+        <div class="d-flex">
+            <img src="./utd.png" height="50">
+            <div class="bold big my-auto ms-2">The University Of Texas at Dallas</div>
+        </div>
+    </div>
+    <div class="py-2 px-3  text-white utd-bg-green">
+        <span class="bold big">
+            Admissions Management System
+        </span>
+    </div>
+    <div class="container-fluid mt-4 pt-4">
+        <div class="row">
+            <div class="col-lg-4 offset-lg-2">
+                <div class="shadow-sm border rounded px-4 py-5">
+                    <div class="utd-orange big mb-4">
+                        Welcome to Admissions Recomendations
+                        <sup class="utd-green">BETA</sup>
+                        <hr class="utd-green" />
+                    </div>
+                    <div class="mb-4">
+                        <label class="utd-green mb-2">Undergraduate GPA</label>
+                        <input type="number" step="0.01" id="gpa" class="form-control utd-orange" value="0.0">
+                    </div>
+                    <div class="mb-4">
+                        <label class="utd-green mb-2">GRE</label>
+                        <input type="number" step="1" id="gre" class="form-control utd-orange" value="270">
+                    </div>
+                    <div class="mb-4">
+                        <label class="utd-green mb-2">Undergraduate Degree</label>
+                        <select class="form-control utd-orange" id="prevEdu">
+                            <option value="bachelors_in_engineering">Bachelor's in Engineering</option>
+                            <option value="bachelors_in_science">Bachelor's in Science</option>
+                            <option value="bachelors_in_science_with_calculus">Bachelor's in Science (With Caclulus)
+                            </option>
+                            <option value="bachelors_in_science_in_computer">Bachelor's in Computer Science</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="utd-green mb-2">Have At Least 3 LORs</label>
+                        <select class="form-control utd-orange" id="lor">
+                            <option value="3">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="utd-green mb-2">Have Essay/SOP</label>
+                        <select class="form-control utd-orange" id="essay">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button class="border-0 py-2 rounded utd-bg-green w-100 text-white" type="button" onclick="getRecommendations()">Get Recomendations</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="shadow-sm rounded px-4 py-5 alert-success d-none" id="op_parent">
+                    <div class="bold mb-3">
+                        Following Departments may be interested in having you as a student:
+                    </div>
+                    <div id="op" class="lead">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    function getRecommendations(){
+        let payload = {
+            gpa:document.getElementById('gpa').value,
+            gre:document.getElementById('gre').value,
+            prev_edu:document.getElementById('prevEdu').value,
+            num_lor:document.getElementById('lor').value,
+            has_essay:document.getElementById('essay').value,
+        }
+        let url = "http://127.0.0.1:5000/check_eligibility"
+
+        axios.post(url,payload).then(function(res){
+            let par = document.getElementById("op_parent")
+            par.classList.remove("d-none")
+            let html = ""
+            let output = document.getElementById("op")
+            if(res.data.majors.length>0){
+                res.data.majors.forEach((element,index) => {
+                let temp_element  =element.replace("_"," ").toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+                html+=(index+1).toString()+": "+temp_element+"<br/>"
+            });
+            }
+            else{
+                html = "Unfortunately there are no majors that fit your critera."
+            }
+            output.innerHTML=html
+        })
+    }
+</script>

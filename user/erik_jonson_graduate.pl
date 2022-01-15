@@ -51,4 +51,4 @@ is_eligible(GPA, GRE, LOR,Essay, Prev_education, Possible_major):-
     seats(Possible_major,N),N>0.
 
 
-?- is_eligible(3.3,310,3,yes,bachelors_in_science,Possible_majors).
+?- is_eligible(3.5,310,3,yes,bachelors_in_science_with_calculus,Possible_majors).
