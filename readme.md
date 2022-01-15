@@ -38,3 +38,4 @@ Note: We've only developed it for the Erik Jonsson School of Engineering and Com
 1) Include graduate and undergraduate programs from other schools at UTD.
 2) Collect proper data from the admmisions team to accurately recommend programs to students.
 3) Expand on the admin side and provide predictions like how many students may get admits this year etc.
+4) Using common sense reasoning in the future: Add a student preference weight to adjust recommendations to fit student's preferance if qualified; Adjust majors based on how competitive they are to allow the more competitive majors be recommended first (if a student qualifies).
