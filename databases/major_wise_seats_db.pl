@@ -1,4 +1,4 @@
-seats(biomedical,4).
+seats(biomedical,5).
 seats(computer,5).
 seats(computer_engineering,5).
 seats(electrical,5).
