@@ -33,7 +33,7 @@ def take_user_inputs():
         bachelors_degree="bachelors_in_science_in_computer"
 
     user_inputs =[gpa,gre,num_lor,has_essay,bachelors_degree,"Possible_majors"]
-    cmd = "?- check_is_eligible("+",".join(user_inputs)+")."
+    cmd = "?- is_eligible("+",".join(user_inputs)+")."
 
     return cmd
 
@@ -46,7 +46,7 @@ def run_scasp():
     if(len(final_output)>0):
         print("\nAccording to the inputs given by the following departments may be interest in having you as a student:\n"+",\n".join(final_output)+"\n")
     else:
-        print("\nUnfortunately, the inputs given by you suggest that you are not eligible to be a student at UTD.\nContact 'engineering@utdallas.edu' for more info.\n")
+        print("\nUnfortunately, the inputs given by you suggest that you are either not eligible or the program is full to be a student at UTD.\nContact 'engineering@utdallas.edu' for more info.\n")
     
 
 lines = retrive_file_content()

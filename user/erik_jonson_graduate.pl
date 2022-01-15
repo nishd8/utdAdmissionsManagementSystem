@@ -1,49 +1,54 @@
 #include '../databases/major_wise_seats_db.pl'.
 
-essay(yes).
-
-background(mechanical,bachelors_in_engineering).
-background(mechanical,bachelors_in_science).
-background(mechanical,bachelors_in_science_with_calculus).
-
-background(biomedical,bachelors_in_engineering).
-background(biomedical,bachelors_in_science).
-background(biomedical,bachelors_in_science_with_calculus).
-
-background(computer_engineering,bachelors_in_engineering).
-background(computer_engineering,bachelors_in_science).
-background(computer_engineering,bachelors_in_science_with_calculus).
-background(computer_engineering,bachelors_in_science_in_computer).
-
-background(electrical,bachelors_in_engineering).
-background(electrical,bachelors_in_science).
-background(electrical,bachelors_in_science_with_calculus).
-
-background(computer,bachelors_in_science_in_computer).
-background(computer,bachelors_in_science_with_calculus).
+% search in array utitlity
+member(E,[E|_]).
+member(E,[_|R]):- member(E,R).
 
 
+%db for erik jonson
+major(biomedical).
+major(computer).
+major(computer_engineering).
+major(electrical).
+major(mechanical).
+
+gpa(biomedical,3.3).
+gpa(computer,3.3).
+gpa(computer_engineering,3.0).
+gpa(electrical,3.0).
+gpa(mechanical,3.0).
+
+gre(biomedical,308).
+gre(computer,315).
+gre(computer_engineering,310).
+gre(electrical,312).
+gre(mechanical,310).
+
+lors(biomedical,3).
+lors(computer,3).
+lors(computer_engineering,3).
+lors(electrical,3).
+lors(mechanical,3).
+
+essay(biomedical,yes).
+essay(computer,yes).
+essay(computer_engineering,yes).
+essay(electrical,yes).
+essay(mechanical,yes).
+
+previous_education(biomedical,['bachelors_in_engineering', 'bachelors_in_science', 'bachelors_in_science_with_calculus']).
+previous_education(computer,['bachelors_in_engineering', 'bachelors_in_science', 'bachelors_in_science_with_calculus', 'bachelors_in_science_computer_science']).
+previous_education(computer_engineering,['bachelors_in_science_with_calculus', 'bachelors_in_science_computer_science']).
+previous_education(electrical,['bachelors_in_engineering', 'bachelors_in_science', 'bachelors_in_science_with_calculus']).
+previous_education(mechanical,['bachelors_in_engineering', 'bachelors_in_science', 'bachelors_in_science_with_calculus']).
+
+is_eligible(GPA, GRE, LOR,Essay, Prev_education, Possible_major):-
+    gpa(Possible_major,Y),GPA>=Y,
+    gre(Possible_major,Z),GRE>=Z,
+    lors(Possible_major,X),LOR>=X,
+    essay(Possible_major,L),Essay=L,
+    previous_education(Possible_major,M),member(Prev_education,M),
+    seats(Possible_major,N),N>0.
 
 
-major(biomedical,GPA,GRE,LOR,Essay,Background):-
-    GPA>=3.3, GRE>=308 , LOR>=3 ,essay(Essay), background(biomedical,Background),seats(biomedical,X),X>0.
-
-major(computer,GPA,GRE,LOR,Essay,Background):-
-    GPA>=3.3, GRE>=308 , LOR>=3 ,essay(Essay), background(computer,Background),seats(computer,X),X>0.
-
-major(computer_engineering,GPA,GRE,LOR,Essay,Background):-
-    GPA>=3.0, GRE>=310 , LOR>=3 ,essay(Essay), background(computer_engineering,Background),seats(computer_engineering,X),X>0.
-
-major(electrical,GPA,GRE,LOR,Essay,Background):-
-    GPA>=3.0, GRE>=310 , LOR>=3 ,essay(Essay), background(electrical,Background),seats(electrical,X),X>0.
-
-major(mechanical,GPA,GRE,LOR,Essay,Background):-
-    GPA>=3.0, GRE>=310 , LOR>=3 ,essay(Essay), background(mechanical,Background),seats(mechanical,X),X>0.
-
-
-
-check_is_eligible(
-    GPA,GRE,LOR,Essay, Background,Possible_major):- 
-        major(Possible_major,GPA,GRE,LOR,Essay,Background).
-
-?- check_is_eligible(3.3,310,3,yes,bachelors_in_science,Possible_majors).
+?- is_eligible(3.3,310,3,yes,bachelors_in_science,Possible_majors).
