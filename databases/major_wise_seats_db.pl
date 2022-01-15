@@ -6,7 +6,7 @@ seats(mechanical,5).
 seats(accounting,5).
 seats(business_analytics,5).
 seats(business_administration,5).
-seats(energy management,5).
+seats(energy_management,5).
 seats(executive_systems_engineering_and_management,5).
 seats(finance,5).
 seats(financial_engineering_and_risk_management,5).
